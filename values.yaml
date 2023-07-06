@@ -15,7 +15,7 @@ namespace:
   name: appdeploypoc
 
 ingress:    
-  hostName: poc.com
+  hostName: singlepageapp.ajith-s-dev.apps.sandbox-m4.g2pi.p1.openshiftapps.com            
   livePathType: Prefix
   livePath: /prod(/|$)(.*)
   secondaryPathType: Prefix

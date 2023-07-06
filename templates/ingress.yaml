@@ -4,22 +4,17 @@ metadata:
   name: {{ .Values.appName }}-ingress
   namespace: {{ .Values.namespace.name }}
   annotations:
-    nginx.ingress.kubernetes.io/rewrite-target: /$1
-    nginx.ingress.kubernetes.io/use-regex: "true"
-    kubernetes.io/ingress.class: "nginx"
+    kubernetes.io/ingress.class: addon-http-application-routing
     app.kubernetes.io/managed-by: "Helm"
     meta.helm.sh/release-name: "singlepageapp"
     meta.helm.sh/release-namespace: "default"
 
 spec:
   rules:
-    #- host: {{ .Values.ingress.hostName }}
-    - http:
-       paths:
-        - path: /?(.*) #/prod(/|$)(.*)
-          pathType: Prefix
-          backend:
-            service:
-              name: {{ .Values.appName }}-service
-              port:
-                number: 80
+  - host: {{ .Values.ingress.hostName }}
+    http:
+      paths:
+      - backend:
+          serviceName: {{ .Values.appName }}-service
+          servicePort: 80
+        path: /
