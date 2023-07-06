@@ -1,0 +1,22 @@
+deployName: appdeploypoc
+appName: singlepageapp
+environment: stg
+version: "1.0"
+
+
+service:
+  type: ClusterIP
+  port: "80"
+
+image:
+  repository: ajdockerspace/singlepageapp:v1.0
+
+namespace:
+  name: appdeploypoc
+
+ingress:    
+  hostName: poc.com
+  livePathType: Prefix
+  livePath: /prod(/|$)(.*)
+  secondaryPathType: Prefix
+  secondaryPath: /stg(/|$)(.*) 
