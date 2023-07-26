@@ -1,9 +1,9 @@
-kind: Namespace
-apiVersion: v1
-metadata:
-  name: {{ .Values.namespace.name }}
-  labels:
-    name: {{ .Values.appName }}
+# kind: Namespace
+# apiVersion: v1
+# metadata:
+#   name: {{ .Values.namespace.name }}
+#   labels:
+#     name: {{ .Values.appName }}
 
 ---
 apiVersion: apps/v1
@@ -11,22 +11,22 @@ kind: Deployment
 metadata:
   labels:
     app: {{ .Values.appName }}    
-  name: {{ .Chart.Name }}
+  name: {{ .Values.appName }}
   namespace: {{ .Values.namespace.name }}
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: {{ .Values.appName }}  
-      version: "0.1"
+      app: {{ .Values.appName }}
   template:
     metadata:
       labels:
-        app: {{ .Values.appName }}  
-        version: "0.1"
+        app: {{ .Values.appName }}
     spec:
+      imagePullSecrets:
+      - name: docker
       containers:
         - image: {{ .Values.image.repository }}
-          name: {{ .Chart.Name }}
+          name: {{ .Values.appName }}
           ports:
-            - containerPort: 80
+            - containerPort: {{ .Values.service.targetPort }}

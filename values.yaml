@@ -1,22 +1,13 @@
-deployName: appdeploypoc
-appName: singlepageapp
-environment: stg
-version: "1.0"
+appName: apiapp
 
 
 service:
   type: ClusterIP
   port: "80"
+  targetPort: 8080
 
 image:
-  repository: ajdockerspace/singlepageapp:v1.0
+  repository: # Repository path
 
 namespace:
-  name: appdeploypoc
-
-ingress:    
-  hostName: singlepageapp.ajith-s-dev.apps.sandbox-m4.g2pi.p1.openshiftapps.com            
-  livePathType: Prefix
-  livePath: /prod(/|$)(.*)
-  secondaryPathType: Prefix
-  secondaryPath: /stg(/|$)(.*) 
+  name: # Project name from OpenShift
